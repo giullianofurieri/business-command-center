@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -7,864 +7,160 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="BizCommand">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#060a10">
-<meta name="description" content="Business Command Center — AI-Powered Financial Dashboard">
+<meta name="theme-color" content="#09090b">
 <title>Business Command Center</title>
-
-<!-- PWA Manifest (inline via blob) -->
-<script>
-const manifest = {
-  name: "Business Command Center",
-  short_name: "BizCommand",
-  description: "AI-Powered Financial & Email Dashboard",
-  start_url: "./",
-  display: "standalone",
-  background_color: "#060a10",
-  theme_color: "#060a10",
-  orientation: "portrait",
-  icons: [
-    { src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='90' fill='%23060a10'/><text x='256' y='340' text-anchor='middle' font-size='280' fill='%2300e5ff'>⚡</text></svg>", sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
-  ]
-};
-const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-const link = document.createElement('link');
-link.rel = 'manifest';
-link.href = URL.createObjectURL(blob);
-document.head.appendChild(link);
-</script>
-
-<!-- iOS Icons -->
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='36' fill='%23060a10'/><text x='90' y='125' text-anchor='middle' font-size='100' fill='%2300e5ff'>⚡</text></svg>">
-
+<script>const mf={name:"Business Command Center",short_name:"BizCmd",start_url:"./",display:"standalone",background_color:"#09090b",theme_color:"#09090b",orientation:"portrait",icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='108' fill='%2309090b'/><text x='256' y='350' text-anchor='middle' font-size='280' fill='%2306b6d4'>⚡</text></svg>",sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}]};const b=new Blob([JSON.stringify(mf)],{type:'application/json'});const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(b);document.head.appendChild(l);</script>
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%2309090b'/><text x='90' y='125' text-anchor='middle' font-size='100' fill='%2306b6d4'>⚡</text></svg>">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
-:root {
-  --bg: #060a10;
-  --bg2: #0b1018;
-  --bg3: #101820;
-  --border: #141e2a;
-  --border2: #1e2a38;
-  --text: #d0d8e4;
-  --text2: #8892a4;
-  --text3: #4b5c6e;
-  --text4: #3a4a5e;
-  --cyan: #00e5ff;
-  --blue: #0066ff;
-  --green: #00e676;
-  --red: #ff5c8a;
-  --yellow: #ffc107;
-  --cyan-bg: rgba(0, 229, 255, 0.08);
-  --safe-b: env(safe-area-inset-bottom, 0px);
-  --safe-t: env(safe-area-inset-top, 0px);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { 
-  height: 100%; overflow: hidden; 
-  font-family: 'DM Sans', -apple-system, sans-serif;
-  background: var(--bg); color: var(--text);
-  -webkit-font-smoothing: antialiased;
-}
-
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
-
-input, select, textarea {
-  font-family: inherit; font-size: 16px; /* Prevents iOS zoom */
-  color: var(--text); background: var(--bg);
-  border: 1px solid var(--border2); border-radius: 10px;
-  padding: 12px 14px; width: 100%; outline: none;
-  -webkit-appearance: none;
-}
-input::placeholder { color: var(--text4); }
-select { color: var(--text2); }
-select option { background: var(--bg2); }
-button { font-family: inherit; cursor: pointer; border: none; outline: none; -webkit-appearance: none; }
-button:active { transform: scale(0.97); }
-button:disabled { opacity: 0.5; pointer-events: none; }
-
-/* ─── APP SHELL ─── */
-#app {
-  display: flex; flex-direction: column;
-  height: 100vh; height: 100dvh;
-  overflow: hidden;
-}
-
-/* ─── HEADER ─── */
-.header {
-  padding: calc(var(--safe-t) + 12px) 16px 12px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: center;
-  flex-shrink: 0; z-index: 10;
-}
-.header-title { font-size: 18px; font-weight: 800; color: #fff; }
-.header-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
-.header-status { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text3); }
-.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
-.gear-btn { background: none; color: var(--text3); padding: 8px; border-radius: 8px; }
-.gear-btn:active { background: var(--bg3); }
-
-/* ─── CONTENT ─── */
-.content {
-  flex: 1; overflow-y: auto; overflow-x: hidden;
-  padding: 16px; padding-bottom: calc(80px + var(--safe-b));
-  -webkit-overflow-scrolling: touch;
-}
-
-/* ─── BOTTOM NAV ─── */
-.bottom-nav {
-  display: flex; justify-content: space-around; align-items: center;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  padding: 6px 4px calc(var(--safe-b) + 6px);
-  flex-shrink: 0; z-index: 10;
-}
-.nav-item {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 2px; padding: 6px 8px; border-radius: 10px;
-  background: none; color: var(--text3); font-size: 10px; font-weight: 600;
-  transition: color 0.15s;
-  min-width: 56px;
-}
-.nav-item.active { color: var(--cyan); }
-.nav-item svg { transition: transform 0.15s; }
-.nav-item.active svg { transform: scale(1.1); }
-.nav-icon { width: 22px; height: 22px; }
-
-/* ─── CARDS ─── */
-.card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 14px; padding: 16px; margin-bottom: 12px;
-}
-.card-title {
-  font-size: 11px; font-weight: 700; color: var(--text2);
-  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px;
-}
-
-/* ─── KPI GRID ─── */
-.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-.kpi { padding: 14px; border-radius: 12px; background: var(--bg2); border: 1px solid var(--border); }
-.kpi-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
-.kpi-value { font-size: 22px; font-weight: 800; font-family: 'JetBrains Mono', monospace; margin-top: 4px; }
-.kpi-sub { font-size: 10px; color: var(--text4); margin-top: 2px; }
-.kpi-icon { float: right; font-size: 16px; }
-
-/* ─── BUTTONS ─── */
-.btn-primary {
-  padding: 11px 18px; border-radius: 10px;
-  background: linear-gradient(135deg, var(--cyan-bg), rgba(0,102,255,0.15));
-  color: var(--cyan); font-size: 13px; font-weight: 600;
-  display: inline-flex; align-items: center; gap: 6px;
-}
-.btn-accent {
-  padding: 11px 18px; border-radius: 10px;
-  background: linear-gradient(135deg, var(--cyan), #0088ff);
-  color: #000; font-size: 13px; font-weight: 700;
-  display: inline-flex; align-items: center; gap: 6px;
-}
-.btn-secondary {
-  padding: 11px 18px; border-radius: 10px;
-  background: transparent; border: 1px solid var(--border2);
-  color: var(--text3); font-size: 13px; font-weight: 500;
-}
-.chip {
-  padding: 7px 14px; border-radius: 20px;
-  background: var(--bg3); border: 1px solid var(--border);
-  color: var(--text3); font-size: 12px; white-space: nowrap;
-}
-.chip.active { background: var(--cyan-bg); border-color: rgba(0,229,255,0.25); color: var(--cyan); }
-
-/* ─── TRANSACTION ROW ─── */
-.txn-row {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px; border-radius: 10px;
-  background: var(--bg); border: 1px solid var(--border);
-  margin-bottom: 6px;
-}
-.txn-desc { font-size: 13px; font-weight: 500; color: var(--text); }
-.txn-meta { font-size: 11px; color: var(--text3); }
-.txn-amount { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 14px; white-space: nowrap; margin-left: auto; }
-
-/* ─── CHAT ─── */
-.chat-area { display: flex; flex-direction: column; height: calc(100dvh - 180px); }
-.chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 10px; }
-.msg { max-width: 85%; padding: 12px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
-.msg-user { align-self: flex-end; background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(0,102,255,0.12)); border: 1px solid rgba(0,229,255,0.2); }
-.msg-bot { align-self: flex-start; background: var(--bg3); border: 1px solid var(--border); }
-.chat-input-row { display: flex; gap: 8px; padding-top: 8px; flex-shrink: 0; }
-.send-btn { width: 46px; height: 46px; border-radius: 12px; background: linear-gradient(135deg, var(--cyan), #0088ff); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.quick-row { display: flex; gap: 6px; overflow-x: auto; padding: 8px 0; flex-shrink: 0; }
-
-/* ─── CODE BLOCK ─── */
-.code-block {
-  background: var(--bg); padding: 14px; border-radius: 10px;
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  color: var(--text3); line-height: 1.5; overflow: auto;
-  max-height: 400px; white-space: pre; border: 1px solid var(--border);
-}
-
-/* ─── OVERLAY / MODAL ─── */
-.overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(6px); display: flex;
-  align-items: flex-end; justify-content: center; z-index: 100;
-}
-.modal {
-  background: var(--bg2); border-radius: 20px 20px 0 0;
-  padding: 24px 20px calc(var(--safe-b) + 24px);
-  width: 100%; max-width: 500px; max-height: 85vh; overflow-y: auto;
-  border: 1px solid var(--border); border-bottom: none;
-}
-.modal-title { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 20px; }
-.form-label { display: block; font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; margin-top: 14px; }
-
-/* ─── BAR CHART ─── */
-.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 100px; padding-top: 8px; }
-.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.bar-val { font-size: 8px; color: var(--text3); font-family: 'JetBrains Mono', monospace; }
-.bar { width: 100%; max-width: 36px; border-radius: 4px 4px 0 0; transition: height 0.4s ease; min-height: 3px; }
-.bar-label { font-size: 8px; color: var(--text4); white-space: nowrap; max-width: 48px; overflow: hidden; text-overflow: ellipsis; }
-
-/* ─── SCAN CATEGORIES ─── */
-.scan-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px; }
-.scan-cat { background: var(--bg); border-radius: 10px; padding: 12px; border: 1px solid var(--border); }
-.scan-cat-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; }
-.scan-item { padding: 6px 0; border-bottom: 1px solid var(--border); }
-.scan-item:last-child { border: none; }
-.scan-item-subject { font-size: 12px; color: var(--text); font-weight: 500; }
-.scan-item-from { font-size: 10px; color: var(--text4); }
-
-/* ─── GROSS VS NET ─── */
-.gvn { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; text-align: center; margin-top: 10px; }
-.gvn-block { flex: 1; min-width: 80px; }
-.gvn-label { font-size: 9px; color: var(--text3); margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
-.gvn-value { font-size: 17px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
-.gvn-op { font-size: 20px; color: var(--text3); padding: 0 2px; }
-
-/* ─── LOADING DOTS ─── */
-.loading-dots { display: flex; gap: 4px; padding: 8px 14px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); animation: dotPulse 1.2s infinite; }
-.dot:nth-child(2) { animation-delay: 0.2s; }
-.dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes dotPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
-
-/* ─── INSTALL BANNER ─── */
-.install-banner {
-  background: linear-gradient(135deg, var(--cyan-bg), rgba(0,102,255,0.1));
-  border: 1px solid rgba(0,229,255,0.2); border-radius: 12px;
-  padding: 14px; margin-bottom: 12px;
-  display: flex; align-items: center; gap: 12px;
-}
-.install-banner p { font-size: 12px; color: var(--text2); flex: 1; }
-.install-banner strong { color: var(--cyan); }
-
-/* ─── ANIMATIONS ─── */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-.fade-up { animation: fadeUp 0.35s ease forwards; }
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+:root{--bg:#030712;--s1:rgba(17,24,39,0.4);--s2:rgba(31,41,55,0.5);--b1:rgba(255,255,255,0.08);--b2:rgba(255,255,255,0.15);--t1:#f8fafc;--t2:#cbd5e1;--t3:#94a3b8;--t4:#64748b;--ac:#06b6d4;--acbg:rgba(6,182,212,0.12);--gn:#10b981;--rd:#f43f5e;--yl:#f59e0b;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;position:relative}
+body::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 50% 50%,rgba(6,182,212,0.05) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(139,92,246,0.05) 0%,transparent 40%);animation:bgo 20s ease-in-out infinite alternate;pointer-events:none;z-index:-1}
+@keyframes bgo{0%{transform:rotate(0) scale(1)}100%{transform:rotate(45deg) scale(1.1)}}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:4px}
+input,select,textarea{font-family:inherit;font-size:15px;color:var(--t1);background:rgba(255,255,255,0.03);border:1px solid var(--b1);border-radius:14px;padding:14px 16px;width:100%;outline:none;transition:all .3s;backdrop-filter:blur(10px)}
+input:focus,select:focus{border-color:var(--ac);background:rgba(255,255,255,0.06);box-shadow:0 0 20px rgba(6,182,212,0.4)}
+input::placeholder{color:var(--t4)}select option{background:#0f172a;color:var(--t1)}
+button{font-family:inherit;cursor:pointer;border:none;outline:none;transition:all .2s}button:active{transform:scale(.96)}button:disabled{opacity:.5;cursor:not-allowed}
+#app{display:flex;flex-direction:column;height:100dvh;overflow:hidden;position:relative;z-index:1}
+.hdr{padding:calc(var(--st) + 16px) 20px 14px;background:rgba(3,7,18,0.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;z-index:10}
+.hdr-l{display:flex;align-items:center;gap:14px}.hdr-icon{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--ac),#0891b2);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(6,182,212,0.3)}
+.hdr-t{font-size:18px;font-weight:700;letter-spacing:-.5px}.hdr-s{font-size:12px;color:var(--t3)}.hdr-r{display:flex;align-items:center;gap:14px}
+.dot-live{width:8px;height:8px;border-radius:50%;background:var(--gn);box-shadow:0 0 10px var(--gn)}
+.gear{background:rgba(255,255,255,0.05);color:var(--t2);padding:8px;border-radius:10px;border:1px solid var(--b1)}
+.cnt{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 20px calc(90px + var(--sb));-webkit-overflow-scrolling:touch}
+.bnav{position:absolute;bottom:calc(var(--sb) + 20px);left:50%;transform:translateX(-50%);display:flex;justify-content:space-around;background:rgba(17,24,39,0.75);backdrop-filter:blur(24px);border:1px solid var(--b2);padding:8px;border-radius:24px;width:calc(100% - 40px);max-width:400px;z-index:20;box-shadow:0 20px 40px rgba(0,0,0,0.5)}
+.ni{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:16px;background:transparent;color:var(--t4);font-size:10px;font-weight:600;min-width:60px;transition:all .3s}
+.ni.on{color:var(--t1);background:rgba(255,255,255,0.1)}.ni svg{width:22px;height:22px;transition:all .3s}.ni.on svg{transform:scale(1.1) translateY(-2px);stroke:var(--ac);filter:drop-shadow(0 0 8px rgba(6,182,212,0.5))}
+.cd{background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:20px;margin-bottom:16px;backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,0.2)}
+.ct{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.kg{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.kp{padding:18px 16px;border-radius:20px;background:rgba(255,255,255,0.02);border:1px solid var(--b1);position:relative;overflow:hidden}
+.kp.hero{grid-column:span 2;background:linear-gradient(135deg,rgba(6,182,212,0.1),transparent);border-color:rgba(6,182,212,0.3)}
+.kp::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)}
+.kp-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;font-weight:600}.kp-v{font-size:24px;font-weight:800;font-family:'JetBrains Mono',monospace;margin-top:6px;letter-spacing:-1px}
+.kp.hero .kp-v{font-size:36px}.kp-s{font-size:11px;color:var(--t4);margin-top:4px}
+.btn-p{padding:12px 20px;border-radius:12px;background:var(--acbg);border:1px solid rgba(6,182,212,0.2);color:var(--ac);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.btn-a{padding:12px 20px;border-radius:12px;background:linear-gradient(135deg,var(--ac),#0891b2);color:#fff;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(6,182,212,0.4)}
+.btn-s{padding:12px 20px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid var(--b2);color:var(--t2);font-size:14px;font-weight:600}
+.ch{padding:8px 16px;border-radius:24px;background:rgba(255,255,255,0.03);border:1px solid var(--b1);color:var(--t3);font-size:12px;font-weight:600;white-space:nowrap}
+.ch.on{background:var(--acbg);border-color:rgba(6,182,212,0.4);color:var(--ac)}
+.tr{display:flex;align-items:center;gap:14px;padding:14px;border-radius:16px;background:rgba(255,255,255,0.02);border:1px solid var(--b1);margin-bottom:8px}
+.tr-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tr-icon.in{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)}.tr-icon.out{background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.2)}
+.tr-d{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tr-m{font-size:11px;color:var(--t4);margin-top:2px}
+.tr-a{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;white-space:nowrap;margin-left:auto}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);display:flex;align-items:flex-end;justify-content:center;z-index:100;animation:fi .3s}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.mo{background:rgba(17,24,39,0.85);border-radius:28px 28px 0 0;padding:30px 24px calc(var(--sb) + 30px);width:100%;max-width:500px;max-height:90vh;overflow-y:auto;border:1px solid var(--b2);border-bottom:none;animation:su .4s cubic-bezier(.16,1,.3,1)}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mo-t{font-size:20px;font-weight:800;margin-bottom:20px}.fl{display:block;font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin:16px 0 6px}
+.cdb{background:rgba(0,0,0,0.3);padding:16px;border-radius:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2);line-height:1.6;overflow:auto;max-height:400px;white-space:pre-wrap;word-break:break-word;border:1px solid var(--b1)}
+.chat-a{display:flex;flex-direction:column;height:calc(100dvh - 200px)}.chat-m{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-bottom:12px}
+.mg{max-width:85%;padding:14px 18px;border-radius:20px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.mg-u{align-self:flex-end;background:linear-gradient(135deg,rgba(6,182,212,0.15),rgba(6,182,212,0.05));border:1px solid rgba(6,182,212,0.3);border-radius:20px 20px 4px 20px}
+.mg-b{align-self:flex-start;background:rgba(255,255,255,0.05);border:1px solid var(--b1);border-radius:20px 20px 20px 4px;backdrop-filter:blur(10px)}
+.chat-ir{display:flex;gap:10px;padding-top:10px;flex-shrink:0}
+.send{width:50px;height:50px;border-radius:16px;background:linear-gradient(135deg,var(--ac),#0891b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(6,182,212,0.3)}
+.qr{display:flex;gap:8px;overflow-x:auto;padding:10px 0;flex-shrink:0}.qr::-webkit-scrollbar{display:none}
+.dots{display:flex;gap:5px;padding:12px 16px;background:rgba(255,255,255,0.03);border-radius:20px;align-self:flex-start;border:1px solid var(--b1)}
+.dt{width:6px;height:6px;border-radius:50%;background:var(--ac);animation:dp 1.4s infinite both}.dt:nth-child(1){animation-delay:-.32s}.dt:nth-child(2){animation-delay:-.16s}
+@keyframes dp{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.fu{animation:fu .5s cubic-bezier(.16,1,.3,1) forwards}
+.bar-c{display:flex;align-items:flex-end;gap:8px;height:80px;padding-top:10px}.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar-v{font-size:9px;color:var(--t1);font-family:'JetBrains Mono',monospace;font-weight:700}.bar{width:100%;max-width:36px;border-radius:6px 6px 0 0;min-height:4px;position:relative;overflow:hidden}
+.bar::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:rgba(255,255,255,0.5)}.bar-lb{font-size:9px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;max-width:100%}
+.imp-zone{border:2px dashed var(--b2);border-radius:20px;padding:30px 20px;text-align:center;cursor:pointer;background:rgba(255,255,255,0.02)}.imp-zone:hover{border-color:var(--ac);background:var(--acbg)}
+.empty-s{text-align:center;padding:40px 20px;color:var(--t4);font-size:14px;background:rgba(255,255,255,0.02);border-radius:16px;border:1px dashed var(--b1)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:.5px}
+.badge.real{background:rgba(16,185,129,0.15);color:var(--gn);border:1px solid rgba(16,185,129,0.3)}
+.badge.local{background:rgba(245,158,11,0.15);color:var(--yl);border:1px solid rgba(245,158,11,0.3)}
 </style>
 </head>
 <body>
 <div id="app"></div>
-
 <script>
-// ═══════════════════════════════════════════════════════════════
-// BUSINESS COMMAND CENTER — MOBILE PWA
-// ═══════════════════════════════════════════════════════════════
+const A=(()=>{
+let S={tab:'dash',profile:{name:'',email:'',currency:'USD',taxRate:.3,apiKey:''},txns:[],chatMsgs:[],emailResults:[],showSettings:false,showTxnForm:false,showImport:false,finFilter:'all',finSearch:'',emailQ:'',profileSetup:false};
+let _u=0;const uid=()=>'t'+(++_u)+'_'+Date.now();const $=s=>document.querySelector(s);
+const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:S.profile.currency||'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(n);
+const fmtF=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:S.profile.currency||'USD'}).format(n);
+const fmtD=d=>{try{return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}catch{return d}};
+const hasAPI=()=>!!S.profile.apiKey?.trim();
+const ic={dash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',fin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>',ai:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M16 14H8a4 4 0 0 0-4 4v2h16v-2a4 4 0 0 0-4-4z"/></svg>',rep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>',send:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>',up:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="5,12 12,5 19,12"/></svg>',dn:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2.5"><polyline points="19,12 12,19 5,12"/></svg>',plus:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',search:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',dl:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',gear:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>',scan:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7V2h5"/><path d="M17 2h5v5"/><path d="M22 17v5h-5"/><path d="M7 22H2v-5"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',trash:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>',upload:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>'};
+const ECAT=['Moradia','Transporte','Alimentação','Saúde','Educação','Lazer','Roupas','Assinaturas','Utilities','Seguros','Dívidas','Investimento','Outros'];
+const ICAT=['Salário','Freelance','Investimento','Presente','Reembolso','Venda','Outros'];
+const TABS=[{id:'dash',l:'Home',ic:ic.dash},{id:'fin',l:'Finanças',ic:ic.fin},{id:'email',l:'E-mail',ic:ic.mail},{id:'ai',l:'IA',ic:ic.ai},{id:'rep',l:'Reports',ic:ic.rep}];
 
-const APP = (() => {
-  // ─── STATE ───
-  let state = {
-    tab: 'dashboard',
-    settings: {
-      companyName: 'SUA EMPRESA',
-      ownerEmail: 'boss@empresa.com',
-      currency: 'USD',
-      taxRate: 0.30,
-    },
-    txns: [
-      { id: 't1', type: 'income', category: 'Service', desc: 'Residential Landscaping - Johnson', amount: 4500, date: '2026-03-10', client: 'Johnson' },
-      { id: 't2', type: 'income', category: 'Contract', desc: 'Commercial Maintenance - Plaza Corp', amount: 8200, date: '2026-03-09', client: 'Plaza Corp' },
-      { id: 't3', type: 'income', category: 'Service', desc: 'Tree Removal - Smith', amount: 2800, date: '2026-03-08', client: 'Smith' },
-      { id: 't4', type: 'expense', category: 'Payroll', desc: 'Employee Wages - Week 10', amount: 6500, date: '2026-03-07' },
-      { id: 't5', type: 'expense', category: 'Equipment', desc: 'New Mower Blades + Oil', amount: 890, date: '2026-03-06' },
-      { id: 't6', type: 'expense', category: 'Fuel', desc: 'Fleet Fuel - 3 Trucks', amount: 1240, date: '2026-03-05' },
-      { id: 't7', type: 'expense', category: 'Insurance', desc: 'Monthly Liability Insurance', amount: 750, date: '2026-03-01' },
-      { id: 't8', type: 'income', category: 'Service', desc: 'Hardscape Installation - Davis', amount: 12500, date: '2026-03-04', client: 'Davis' },
-      { id: 't9', type: 'expense', category: 'Materials', desc: 'Pavers + Gravel Delivery', amount: 3200, date: '2026-03-03' },
-      { id: 't10', type: 'expense', category: 'Fuel', desc: 'Diesel Refill - Excavator', amount: 480, date: '2026-03-02' },
-      { id: 't11', type: 'income', category: 'Consultation', desc: 'Design Consultation - Rivera', amount: 1500, date: '2026-03-01', client: 'Rivera' },
-    ],
-    chatMsgs: [],
-    emailResults: [],
-    scanResult: null,
-    showSettings: false,
-    showTxnForm: false,
-    finFilter: 'all',
-    finSearch: '',
-    emailQuery: '',
-  };
+function calc(){const t=S.txns,inc=t.filter(x=>x.type==='in').reduce((s,x)=>s+x.amount,0),exp=t.filter(x=>x.type==='out').reduce((s,x)=>s+x.amount,0),net=inc-exp,tax=net>0?net*S.profile.taxRate:0,netA=net-tax,margin=inc>0?(net/inc*100):0,today=new Date().toISOString().split('T')[0],tIn=t.filter(x=>x.type==='in'&&x.date===today).reduce((s,x)=>s+x.amount,0),tOut=t.filter(x=>x.type==='out'&&x.date===today).reduce((s,x)=>s+x.amount,0),byCat={},bySrc={},months={};t.filter(x=>x.type==='out').forEach(x=>{byCat[x.cat]=(byCat[x.cat]||0)+x.amount});t.filter(x=>x.type==='in').forEach(x=>{bySrc[x.cat]=(bySrc[x.cat]||0)+x.amount});t.forEach(x=>{const m=x.date?.substring(0,7);if(m){if(!months[m])months[m]={in:0,out:0};months[m][x.type==='in'?'in':'out']+=x.amount;}});return{inc,exp,net,tax,netA,margin,tIn,tOut,byCat,bySrc,months,count:t.length};}
+function save(){try{localStorage.setItem('bcc3',JSON.stringify({txns:S.txns,profile:S.profile,chatMsgs:S.chatMsgs.slice(-50)}))}catch{}}
+function load(){try{const d=JSON.parse(localStorage.getItem('bcc3'));if(d){if(d.txns)S.txns=d.txns;if(d.profile)S.profile={...S.profile,...d.profile};if(d.chatMsgs)S.chatMsgs=d.chatMsgs;if(S.profile.name)S.profileSetup=true;}}catch{}}
+function barChart(data,color,h=65){const mx=Math.max(...data.map(d=>d.v),1);return'<div class="bar-c" style="height:'+h+'px">'+data.map(d=>'<div class="bar-col"><div class="bar-v">'+fmt(d.v).replace(/[\$R€]/g,'')+'</div><div class="bar" style="height:'+Math.max((d.v/mx)*(h-24),4)+'px;background:linear-gradient(180deg,'+color+','+color+'44)"></div><div class="bar-lb">'+d.l+'</div></div>').join('')+'</div>';}
 
-  let _uid = 100;
-  const uid = () => 't_' + (++_uid);
-  const fmt = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(n);
-  const fmtFull = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
-  const fmtDate = (d) => new Date(d+'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  const $ = (sel) => document.querySelector(sel);
-  const $$ = (sel) => document.querySelectorAll(sel);
+// ═══ SMART LOCAL AI ═══
+function localAI(q,f){const nm=S.profile.name?.split(' ')[0]||'';const t=q.toLowerCase();const topE=Object.entries(f.byCat).sort((a,b)=>b[1]-a[1]);const topS=Object.entries(f.bySrc).sort((a,b)=>b[1]-a[1]);const E=f.exp||1;
+if(f.count===0)return(nm||'Amigo')+', você ainda não tem transações! Adicione na aba Finanças ou importe um CSV do banco.';
+if(t.includes('resumo')||t.includes('overview')||t.includes('completo')){let r='📊 Panorama'+(nm?' de '+nm:'')+':\n\n💰 Receita: '+fmtF(f.inc)+'\n💸 Despesas: '+fmtF(f.exp)+'\n📈 Lucro bruto: '+fmtF(f.net)+' (margem '+f.margin.toFixed(1)+'%)\n🏛️ Imposto: '+fmtF(f.tax)+'\n✅ Líquido: '+fmtF(f.netA)+'\n\n';r+=f.margin>30?'Excelente margem! 🎯':(f.margin>15?'Margem saudável, mas dá pra melhorar.':'⚠️ Margem baixa — atenção!');return r;}
+if(t.includes('cortar')||t.includes('gastos')||t.includes('economizar')||t.includes('reduzir')){if(!topE.length)return'Sem despesas pra analisar!';let r='🔍 Análise de gastos:\n\n';topE.forEach(([c,v])=>{const p=(v/E*100).toFixed(1);r+=(p>40?'🚨 ':p>25?'⚠️ ':'✅ ')+c+': '+fmtF(v)+' ('+p+'%)'+(p>40?' — Revise urgente!':p>25?' — Espaço pra otimizar':'')+'\n';});r+='\n💡 Cortar 15% da maior despesa = economia de '+fmtF(topE[0][1]*0.15)+'/período.';return r;}
+if(t.includes('investir')||t.includes('investimento')){const d=f.netA;if(d<=0)return'Lucro líquido negativo. Foque em equilibrar antes de investir.';return'💰 Análise de investimento:\n\nDisponível: '+fmtF(d)+'\n\n1️⃣ Reserva emergência: '+fmtF(f.exp*3)+' (3 meses)\n2️⃣ Renda fixa: 40-50% do lucro\n3️⃣ ETFs/Ações: 20-30%\n4️⃣ Alternativas: 10-20%\n\nSugestão: '+fmtF(d*0.2)+'/período em investimentos (20% do lucro).';}
+if(t.includes('previsão')||t.includes('projeção')||t.includes('mês')){const md=Object.entries(f.months).sort((a,b)=>a[0].localeCompare(b[0]));if(!md.length)return'Preciso de dados pra projetar!';const last=md[md.length-1];let r='📅 Projeção:\n\nÚltimo período ('+last[0]+'): Receita '+fmtF(last[1].in)+', Despesa '+fmtF(last[1].out)+'\n';if(md.length>=2){const prev=md[md.length-2];r+='Tendência receita: '+((last[1].in-prev[1].in)/Math.max(prev[1].in,1)*100).toFixed(1)+'%\n';}r+='\nProjeção mensal: Lucro '+fmtF(last[1].in-last[1].out);return r;}
+if(t.includes('padrão')||t.includes('padrões')||t.includes('análise')){let r='🧠 Padrões:\n\n'+f.count+' transações\n';if(topE.length)r+='Maior gasto: '+topE[0][0]+' ('+(topE[0][1]/E*100).toFixed(0)+'%)\n';if(topS.length)r+='Maior fonte: '+topS[0][0]+'\n';r+='Ticket médio: '+fmtF((f.inc+f.exp)/f.count)+'\n\n';r+=f.margin>25?'✅ Saúde: BOA':(f.margin>10?'⚠️ Saúde: ATENÇÃO':'🚨 Saúde: CRÍTICA');return r;}
+return'Seus números: Receita '+fmtF(f.inc)+', Despesas '+fmtF(f.exp)+', Líquido '+fmtF(f.netA)+' ('+f.margin.toFixed(1)+'% margem).\n\n'+(hasAPI()?'':'💡 Com API Key, as respostas ficam muito mais inteligentes!\n\n')+'Pergunte: resumo, cortar gastos, investir, previsão, ou análise.';}
 
-  // ─── CALC FINANCIALS ───
-  function calcFin() {
-    const txns = state.txns;
-    const inc = txns.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
-    const exp = txns.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
-    const net = inc - exp;
-    const tax = net > 0 ? net * state.settings.taxRate : 0;
-    const netAfter = net - tax;
-    const margin = inc > 0 ? (net / inc * 100) : 0;
-    const today = new Date().toISOString().split('T')[0];
-    const todayIn = txns.filter(t => t.type === 'income' && t.date === today).reduce((s, t) => s + t.amount, 0);
-    const todayOut = txns.filter(t => t.type === 'expense' && t.date === today).reduce((s, t) => s + t.amount, 0);
-    const byCat = {};
-    txns.filter(t => t.type === 'expense').forEach(t => { byCat[t.category] = (byCat[t.category] || 0) + t.amount; });
-    const byClient = {};
-    txns.filter(t => t.type === 'income').forEach(t => { byClient[t.client || 'Other'] = (byClient[t.client || 'Other'] || 0) + t.amount; });
-    return { inc, exp, net, tax, netAfter, margin, todayIn, todayOut, byCat, byClient, count: txns.length };
-  }
+// ═══ RENDERS ═══
+function renderWelcome(){return'<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;text-align:center;padding:20px" class="fu"><div style="font-size:52px;margin-bottom:16px;filter:drop-shadow(0 0 10px rgba(6,182,212,0.5))">⚡</div><h1 style="font-size:26px;font-weight:800;margin-bottom:8px;background:linear-gradient(to right,#fff,var(--t3));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Business Command Center</h1><p style="color:var(--t3);font-size:14px;margin-bottom:32px;max-width:300px">Configure seu perfil para começar.</p><div style="width:100%;max-width:340px;text-align:left;background:rgba(255,255,255,0.02);padding:24px;border-radius:24px;border:1px solid var(--b1)"><label class="fl">Seu Nome</label><input id="w-name" placeholder="Como quer ser chamado?"><label class="fl">Seu E-mail</label><input id="w-email" type="email" placeholder="seuemail@exemplo.com"><label class="fl">Moeda</label><select id="w-cur"><option value="USD">USD ($)</option><option value="BRL">BRL (R$)</option><option value="EUR">EUR (€)</option></select><label class="fl">Imposto (%)</label><input id="w-tax" type="number" value="30"><label class="fl">API Key <span style="font-weight:400;color:var(--t4)">(opcional — deixe vazio pra modo local)</span></label><input id="w-api" type="password" placeholder="sk-ant-..."><p style="font-size:10px;color:var(--t4);margin-top:4px">🟢 Com API: IA real (Claude) · 🟡 Sem: análise local inteligente</p><button class="btn-a" style="width:100%;justify-content:center;margin-top:24px;padding:16px" onclick="A.setupProfile()">Acessar ⚡</button></div></div>';}
 
-  // ─── SAVE/LOAD LOCALSTORAGE ───
-  function save() {
-    try { localStorage.setItem('bcc_data', JSON.stringify({ txns: state.txns, settings: state.settings })); } catch {}
-  }
-  function load() {
-    try {
-      const d = JSON.parse(localStorage.getItem('bcc_data'));
-      if (d) { if (d.txns) state.txns = d.txns; if (d.settings) state.settings = { ...state.settings, ...d.settings }; }
-    } catch {}
-  }
+function renderDash(){const f=calc();const catD=Object.entries(f.byCat).sort((a,b)=>b[1]-a[1]).slice(0,5);const srcD=Object.entries(f.bySrc).sort((a,b)=>b[1]-a[1]).slice(0,5);const nm=S.profile.name?.split(' ')[0]||'';const h=new Date().getHours();const g=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+return'<div class="fu"><p style="color:var(--t3);font-size:14px;margin-bottom:4px">'+g+(nm?', '+nm:'')+' 👋</p><h2 style="font-size:22px;font-weight:800;margin-bottom:20px">Resumo Financeiro</h2></div><div class="kg fu"><div class="kp hero"><div class="kp-l">Lucro Líquido</div><div class="kp-v" style="color:'+(f.netA>=0?'var(--gn)':'var(--rd)')+'">'+fmt(f.netA)+'</div><div class="kp-s">após '+(S.profile.taxRate*100).toFixed(0)+'% imposto · '+f.margin.toFixed(1)+'% margem</div></div><div class="kp"><div class="kp-l">Receita</div><div class="kp-v">'+fmt(f.inc)+'</div><div class="kp-s" style="color:var(--gn)">+'+(f.tIn>0?fmt(f.tIn):'0')+' hoje</div></div><div class="kp"><div class="kp-l">Despesas</div><div class="kp-v">'+fmt(f.exp)+'</div><div class="kp-s" style="color:var(--rd)">-'+(f.tOut>0?fmt(f.tOut):'0')+' hoje</div></div></div>'+(S.txns.length===0?'<div class="cd fu" style="text-align:center;padding:32px;background:rgba(6,182,212,0.05);border-color:rgba(6,182,212,0.2)"><div style="font-size:32px;margin-bottom:12px">📊</div><p style="color:var(--t2);font-size:14px;margin-bottom:20px">Nenhuma transação ainda.</p><div style="display:flex;gap:12px;justify-content:center"><button class="btn-p" onclick="A.setTab(\'fin\')">+ Adicionar</button><button class="btn-a" onclick="A.toggleImport()">Upload CSV</button></div></div>':'')+(catD.length?'<div class="cd fu"><div class="ct">Top Despesas</div>'+barChart(catD.map(([l,v])=>({l,v})),'#f43f5e')+'</div>':'')+(srcD.length?'<div class="cd fu"><div class="ct">Fontes de Receita</div>'+barChart(srcD.map(([l,v])=>({l,v})),'#10b981')+'</div>':'')+(S.showImport?renderImportModal():'');}
 
-  // ─── SVG ICONS ───
-  const icons = {
-    dash: `<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>`,
-    money: `<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
-    mail: `<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>`,
-    bot: `<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="11"/></svg>`,
-    report: `<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-    send: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>`,
-    up: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></svg>`,
-    down: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5c8a" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19,12 12,19 5,12"/></svg>`,
-    gear: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`,
-    download: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
-    scan: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7V2h5"/><path d="M17 2h5v5"/><path d="M22 17v5h-5"/><path d="M7 22H2v-5"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
-    trash: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>`,
-    plus: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
-    search: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
-  };
+function renderFin(){const flt=S.txns.filter(x=>S.finFilter==='all'||x.type===(S.finFilter==='in'?'in':'out')).filter(x=>!S.finSearch||x.desc.toLowerCase().includes(S.finSearch.toLowerCase())||x.cat.toLowerCase().includes(S.finSearch.toLowerCase())).sort((a,b)=>new Date(b.date)-new Date(a.date));
+return'<div style="display:flex;gap:8px;margin-bottom:16px" class="fu"><div style="flex:1;position:relative"><span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--t4)">'+ic.search+'</span><input id="f-s" style="padding-left:40px;border-radius:16px" placeholder="Pesquisar..." value="'+S.finSearch+'" oninput="A.sFS(this.value)"></div><button class="btn-p" style="padding:0 14px;border-radius:16px" onclick="A.tTF()">'+ic.plus+'</button><button class="btn-a" style="padding:0 14px;border-radius:16px" onclick="A.toggleImport()">'+ic.upload+'</button></div><div style="display:flex;gap:8px;margin-bottom:20px;overflow-x:auto" class="fu">'+['all','in','out'].map(f=>'<button class="ch '+(S.finFilter===f?'on':'')+'" onclick="A.sFF(\''+f+'\')">'+({all:'Todas',in:'↑ Entradas',out:'↓ Saídas'}[f])+'</button>').join('')+'</div>'+(S.showTxnForm?'<div class="cd fu" style="border-color:rgba(6,182,212,.2)"><div class="ct">Nova Transação</div><label class="fl">Tipo</label><select id="tf-type" onchange="A.updCats()"><option value="in">↑ Entrada</option><option value="out">↓ Saída</option></select><label class="fl">Categoria</label><select id="tf-cat">'+ICAT.map(c=>'<option>'+c+'</option>').join('')+'</select><label class="fl">Descrição</label><input id="tf-desc" placeholder="Descreva"><label class="fl">Valor</label><input id="tf-amt" type="number" inputmode="decimal" placeholder="0.00"><label class="fl">Data</label><input id="tf-date" type="date" value="'+new Date().toISOString().split('T')[0]+'"><div style="display:flex;gap:8px;margin-top:14px"><button class="btn-a" style="flex:1" onclick="A.addT()">Adicionar</button><button class="btn-s" onclick="A.tTF()">Cancelar</button></div></div>':'')+'<div style="font-size:11px;color:var(--t4);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">'+flt.length+' Transações</div>'+flt.map(t=>'<div class="tr fu"><div class="tr-icon '+t.type+'">'+({in:ic.up,out:ic.dn}[t.type])+'</div><div style="flex:1;min-width:0"><div class="tr-d">'+t.desc+'</div><div class="tr-m">'+t.cat+' · '+fmtD(t.date)+'</div></div><div class="tr-a" style="color:'+(t.type==='in'?'var(--gn)':'var(--t1)')+'">'+({in:'+',out:'−'}[t.type])+fmt(t.amount)+'</div><button style="background:none;padding:6px;color:var(--t4)" onclick="A.delT(\''+t.id+'\')">'+ic.trash+'</button></div>').join('')+(flt.length===0?'<div class="empty-s">Nenhuma transação.</div>':'')+(S.showImport?renderImportModal():'');}
 
-  // ─── BAR CHART HELPER ───
-  function barChart(data, color, height = 80) {
-    const max = Math.max(...data.map(d => d.v), 1);
-    return `<div class="bar-chart" style="height:${height}px">${data.map(d => 
-      `<div class="bar-col">
-        <div class="bar-val">${fmt(d.v).replace('$','')}</div>
-        <div class="bar" style="height:${Math.max((d.v/max)*(height-30),3)}px;background:linear-gradient(180deg,${color},${color}44)"></div>
-        <div class="bar-label">${d.l}</div>
-      </div>`
-    ).join('')}</div>`;
-  }
+function renderImportModal(){return'<div class="ov" onclick="A.toggleImport()"><div class="mo" onclick="event.stopPropagation()"><div class="mo-t">📁 Importar Dados Bancários</div><p style="color:var(--t3);font-size:12px;margin-bottom:16px">Exporte o extrato do banco como CSV e importe aqui.</p><div class="imp-zone" onclick="document.getElementById(\'csv-input\').click()"><div style="font-size:28px;margin-bottom:8px">📄</div><p style="color:var(--t2);font-size:13px;font-weight:500">Toque para selecionar CSV</p><input type="file" id="csv-input" accept=".csv,.txt" style="display:none" onchange="A.importCSV(this.files[0])"></div><div id="imp-status" style="margin-top:12px"></div><p style="color:var(--t4);font-size:10px;margin-top:16px;text-align:center">💡 Nubank, Itaú, BB, Bradesco — todos exportam CSV.</p></div></div>';}
 
-  // ═══════════════════════════════════════════════════════════════
-  // RENDER FUNCTIONS
-  // ═══════════════════════════════════════════════════════════════
+function renderEmail(){return'<div style="display:flex;gap:7px;margin-bottom:10px" class="fu"><div style="flex:1;position:relative"><span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t4)">'+ic.search+'</span><input id="eq" style="padding-left:34px" placeholder="Buscar e-mails..." value="'+S.emailQ+'" oninput="A.S.emailQ=this.value" onkeydown="if(event.key===\'Enter\')A.srchE()"></div><button class="btn-p" onclick="A.srchE()">Buscar</button></div><div style="display:flex;gap:5px;overflow-x:auto;margin-bottom:12px" class="fu">'+[{q:'payment OR invoice',l:'💳 Pagamentos'},{q:'quote request',l:'🎯 Leads'},{q:'contract',l:'🤝 Deals'},{q:'is:unread',l:'📬 Novos'}].map(f=>'<button class="ch" onclick="A.srchE(\''+f.q+'\')">'+f.l+'</button>').join('')+'</div><div class="cd fu" style="border-color:rgba(6,182,212,.1)"><div class="ct">🤖 Scanner IA <span class="badge '+(hasAPI()?'real':'local')+'">'+(hasAPI()?'IA REAL':'LOCAL')+'</span></div><p style="font-size:10px;color:var(--t4)">Requer API Key + Gmail MCP</p><button class="btn-a" style="width:100%;justify-content:center;margin-top:10px" onclick="A.scanE()" id="sc-btn">'+ic.scan+' Escanear</button><div id="sc-res"></div></div><div id="e-res" style="margin-top:10px">'+S.emailResults.map(e=>'<div class="cd"><div class="cdb">'+e+'</div></div>').join('')+'</div>';}
 
-  function renderDashboard() {
-    const f = calcFin();
-    const catData = Object.entries(f.byCat).sort((a,b) => b[1]-a[1]).slice(0,6);
-    const clientData = Object.entries(f.byClient).sort((a,b) => b[1]-a[1]).slice(0,6);
+function renderAI(){const nm=S.profile.name?.split(' ')[0]||'';const msgs=S.chatMsgs.length?S.chatMsgs:[{role:'bot',text:'Olá'+(nm?', '+nm:'')+' 👋\n\nSou seu assistente financeiro. Pergunta o que quiser!'}];
+return'<div class="chat-a"><div style="text-align:center;padding:4px 0"><span class="badge '+(hasAPI()?'real':'local')+'">'+(hasAPI()?'🟢 IA REAL (Claude)':'🟡 MODO LOCAL INTELIGENTE')+'</span></div><div class="chat-m" id="cs">'+msgs.map(m=>'<div class="mg '+(m.role==='user'?'mg-u':'mg-b')+'">'+m.text+'</div>').join('')+'<div id="cl" style="display:none"><div class="dots"><div class="dt"></div><div class="dt"></div><div class="dt"></div></div></div></div><div class="qr">'+['Resumo completo','Onde cortar gastos?','Devo investir em quê?','Previsão do mês','Análise de padrões'].map(q=>'<button class="ch" onclick="A.aiSend(\''+q+'\')">'+q+'</button>').join('')+'</div><div class="chat-ir"><input id="ci" placeholder="Pergunte sobre suas finanças..." onkeydown="if(event.key===\'Enter\')A.aiSend()"><button class="send" onclick="A.aiSend()">'+ic.send+'</button></div></div>';}
 
-    return `
-      <div class="kpi-grid fade-up">
-        <div class="kpi"><span class="kpi-icon">📈</span><div class="kpi-label">Gross Revenue</div><div class="kpi-value" style="color:var(--cyan)">${fmt(f.inc)}</div><div class="kpi-sub">${state.txns.filter(t=>t.type==='income').length} entradas</div></div>
-        <div class="kpi"><span class="kpi-icon">📉</span><div class="kpi-label">Expenses</div><div class="kpi-value" style="color:var(--red)">${fmt(f.exp)}</div><div class="kpi-sub">${state.txns.filter(t=>t.type==='expense').length} saídas</div></div>
-        <div class="kpi"><span class="kpi-icon">${f.netAfter>=0?'✅':'⚠️'}</span><div class="kpi-label">Net Profit</div><div class="kpi-value" style="color:${f.netAfter>=0?'var(--green)':'var(--red)'}">${fmt(f.netAfter)}</div><div class="kpi-sub">After ${(state.settings.taxRate*100).toFixed(0)}% tax</div></div>
-        <div class="kpi"><span class="kpi-icon">📊</span><div class="kpi-label">Margin</div><div class="kpi-value" style="color:${f.margin>=20?'var(--green)':'var(--yellow)'}">${f.margin.toFixed(1)}%</div><div class="kpi-sub">Before tax</div></div>
-      </div>
+function renderRep(){const f=calc();const rep='RELATÓRIO — '+S.profile.name+' — '+new Date().toLocaleDateString('pt-BR')+'\n\nReceita: '+fmtF(f.inc)+'\nDespesas: '+fmtF(f.exp)+'\nLíquido: '+fmtF(f.netA)+'\nMargem: '+f.margin.toFixed(1)+'%\n\nDespesas:\n'+Object.entries(f.byCat).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'  '+k+': '+fmtF(v)).join('\n')+'\n\nReceitas:\n'+Object.entries(f.bySrc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'  '+k+': '+fmtF(v)).join('\n');
+return'<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px" class="fu"><button class="btn-p" style="width:100%;justify-content:center" onclick="A.dlTxt()">'+ic.dl+' Download .TXT</button><button class="btn-p" style="width:100%;justify-content:center" onclick="A.dlCsv()">'+ic.dl+' Exportar .CSV</button></div><div class="cd fu"><div class="ct">📋 Preview</div><pre class="cdb" id="rep-txt">'+rep+'</pre></div>';}
 
-      <div class="card fade-up" style="animation-delay:0.08s;background:linear-gradient(135deg,var(--bg2),#0d1525)">
-        <div class="card-title">💡 Gross vs Net</div>
-        <div class="gvn">
-          <div class="gvn-block"><div class="gvn-label">Gross</div><div class="gvn-value" style="color:var(--cyan)">${fmt(f.inc)}</div></div>
-          <div class="gvn-op">−</div>
-          <div class="gvn-block"><div class="gvn-label">Expenses</div><div class="gvn-value" style="color:var(--red)">${fmt(f.exp)}</div></div>
-          <div class="gvn-op">=</div>
-          <div class="gvn-block"><div class="gvn-label">Net</div><div class="gvn-value" style="color:var(--green)">${fmt(f.netAfter)}</div></div>
-        </div>
-      </div>
+function renderSettings(){if(!S.showSettings)return'';return'<div class="ov" onclick="A.cS()"><div class="mo" onclick="event.stopPropagation()"><div class="mo-t">⚙ Configurações</div><label class="fl">Nome</label><input id="s-name" value="'+S.profile.name+'"><label class="fl">E-mail</label><input id="s-email" type="email" value="'+S.profile.email+'"><label class="fl">Moeda</label><select id="s-cur"><option value="USD" '+(S.profile.currency==='USD'?'selected':'')+'>USD ($)</option><option value="BRL" '+(S.profile.currency==='BRL'?'selected':'')+'>BRL (R$)</option><option value="EUR" '+(S.profile.currency==='EUR'?'selected':'')+'>EUR (€)</option></select><label class="fl">Imposto (%)</label><input id="s-tax" type="number" value="'+(S.profile.taxRate*100).toFixed(0)+'"><label class="fl">API Key Anthropic <span style="font-weight:400;color:var(--t4)">(opcional)</span></label><input id="s-api" type="password" value="'+(S.profile.apiKey||'')+'" placeholder="sk-ant-..."><p style="font-size:10px;color:var(--t4);margin-top:4px">'+(hasAPI()?'🟢 API conectada!':'🟡 Sem API — modo local. Crie em console.anthropic.com')+'</p><div style="margin-top:18px;display:flex;gap:8px"><button class="btn-a" style="flex:1" onclick="A.savS()">Salvar</button><button class="btn-s" onclick="A.cS()">Cancelar</button></div><button style="width:100%;margin-top:14px;padding:12px;background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.15);border-radius:10px;color:var(--rd);font-size:12px;font-weight:600" onclick="if(confirm(\'Apagar TODOS os dados?\')){localStorage.removeItem(\'bcc3\');location.reload()}">🗑 Limpar Dados</button></div></div>';}
 
-      ${catData.length ? `<div class="card fade-up" style="animation-delay:0.15s"><div class="card-title">Despesas por Categoria</div>${barChart(catData.map(([l,v])=>({l,v})),'#ff5c8a')}</div>` : ''}
-      ${clientData.length ? `<div class="card fade-up" style="animation-delay:0.2s"><div class="card-title">Receita por Cliente</div>${barChart(clientData.map(([l,v])=>({l,v})),'#00e5ff')}</div>` : ''}
+function render(){const tl={dash:'Home',fin:'Finanças',email:'E-mail Hub',ai:'Assistente IA',rep:'Relatórios'};if(!S.profileSetup){$('#app').innerHTML='<div class="hdr"><div class="hdr-l"><div class="hdr-icon">⚡</div><div><div class="hdr-t">BizCommand</div></div></div></div><div class="cnt">'+renderWelcome()+'</div>';return;}let c='';switch(S.tab){case'dash':c=renderDash();break;case'fin':c=renderFin();break;case'email':c=renderEmail();break;case'ai':c=renderAI();break;case'rep':c=renderRep();break;}$('#app').innerHTML='<div class="hdr"><div class="hdr-l"><div class="hdr-icon">⚡</div><div><div class="hdr-t">'+tl[S.tab]+'</div><div class="hdr-s">'+new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'short'})+'</div></div></div><div class="hdr-r"><div class="dot-live"></div><button class="gear" onclick="A.oS()">'+ic.gear+'</button></div></div><div class="cnt" id="mc">'+c+'</div><nav class="bnav">'+TABS.map(t=>'<button class="ni '+(S.tab===t.id?'on':'')+'" onclick="A.setTab(\''+t.id+'\')">'+t.ic+'<span>'+t.l+'</span></button>').join('')+'</nav>'+renderSettings();const cs=$('#cs');if(cs)cs.scrollTop=cs.scrollHeight;}
 
-      <div class="kpi-grid fade-up" style="animation-delay:0.25s">
-        <div class="kpi"><div class="kpi-label">Receita Hoje</div><div class="kpi-value" style="color:var(--cyan);font-size:18px">${fmt(f.todayIn)}</div></div>
-        <div class="kpi"><div class="kpi-label">Despesas Hoje</div><div class="kpi-value" style="color:var(--red);font-size:18px">${fmt(f.todayOut)}</div></div>
-      </div>
-    `;
-  }
+// ═══ ACTIONS ═══
+function setTab(t){S.tab=t;render();}
+function setupProfile(){S.profile.name=$('#w-name').value.trim();S.profile.email=$('#w-email').value.trim();S.profile.currency=$('#w-cur').value;S.profile.taxRate=parseFloat($('#w-tax').value||30)/100;S.profile.apiKey=$('#w-api')?.value?.trim()||'';if(!S.profile.name)return alert('Digite seu nome');S.profileSetup=true;save();render();}
+function sFF(f){S.finFilter=f;render();}function sFS(v){S.finSearch=v;render();}function tTF(){S.showTxnForm=!S.showTxnForm;render();}function toggleImport(){S.showImport=!S.showImport;render();}function oS(){S.showSettings=true;render();}function cS(){S.showSettings=false;render();}
+function updCats(){const c=$('#tf-type').value==='in'?ICAT:ECAT;$('#tf-cat').innerHTML=c.map(x=>'<option>'+x+'</option>').join('');}
+function addT(){const t=$('#tf-type').value,cat=$('#tf-cat').value,desc=$('#tf-desc').value,amt=parseFloat($('#tf-amt').value),date=$('#tf-date').value;if(!desc||!amt)return alert('Preencha tudo');S.txns.push({id:uid(),type:t,cat,desc,amount:amt,date});S.showTxnForm=false;save();render();}
+function delT(id){S.txns=S.txns.filter(t=>t.id!==id);save();render();}
+function savS(){S.profile.name=$('#s-name').value;S.profile.email=$('#s-email').value;S.profile.currency=$('#s-cur').value;S.profile.taxRate=parseFloat($('#s-tax').value)/100;S.profile.apiKey=$('#s-api')?.value?.trim()||'';S.showSettings=false;save();render();}
 
-  function renderFinances() {
-    const filtered = state.txns
-      .filter(t => state.finFilter === 'all' || t.type === state.finFilter)
-      .filter(t => !state.finSearch || t.desc.toLowerCase().includes(state.finSearch.toLowerCase()) || t.category.toLowerCase().includes(state.finSearch.toLowerCase()))
-      .sort((a,b) => new Date(b.date) - new Date(a.date));
+// ═══ CSV IMPORT ═══
+function importCSV(file){if(!file)return;const st=$('#imp-status');if(st)st.innerHTML='<p style="color:var(--ac)">Processando...</p>';const r=new FileReader();r.onload=function(e){try{const lines=e.target.result.split('\n').filter(l=>l.trim());if(lines.length<2){if(st)st.innerHTML='<p style="color:var(--rd)">Arquivo vazio</p>';return;}let imp=0;for(let i=1;i<lines.length;i++){const vals=lines[i].split(/[,;|\t]/).map(v=>v.trim().replace(/^"|"$/g,''));if(vals.length<2)continue;let date='',desc='',amount=0,type='out';vals.forEach(v=>{const dmy=v.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);const ymd=v.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/);if(ymd)date=ymd[1]+'-'+ymd[2].padStart(2,'0')+'-'+ymd[3].padStart(2,'0');else if(dmy)date=dmy[3]+'-'+dmy[2].padStart(2,'0')+'-'+dmy[1].padStart(2,'0');else{const cl=v.replace(/[R$€\s]/g,'').replace(/\./g,'X').replace(',','.').replace(/X/g,'');const n=parseFloat(cl);if(!isNaN(n)&&v.match(/[\d]/)){amount=Math.abs(n);type=n>0?'in':'out';}else if(v.length>2&&isNaN(parseFloat(v)))desc=desc?desc+' '+v:v;}});if(amount>0&&desc){if(!date)date=new Date().toISOString().split('T')[0];S.txns.push({id:uid(),type,cat:'Outros',desc:desc.substring(0,60),amount,date});imp++;}}save();if(st)st.innerHTML='<div class="cd" style="border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.05)"><p style="color:var(--gn)">✅ '+imp+' transações importadas!</p></div>';setTimeout(()=>{S.showImport=false;render();},2000);}catch(err){if(st)st.innerHTML='<p style="color:var(--rd)">'+err.message+'</p>';}};r.readAsText(file);}
 
-    return `
-      <div style="display:flex;gap:8px;margin-bottom:12px" class="fade-up">
-        <div style="flex:1;position:relative">
-          <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text4)">${icons.search}</span>
-          <input id="fin-search" style="padding-left:36px" placeholder="Buscar..." value="${state.finSearch}" oninput="APP.setFinSearch(this.value)">
-        </div>
-        <button class="btn-primary" onclick="APP.toggleTxnForm()" style="padding:10px 14px">${icons.plus}</button>
-      </div>
-      <div style="display:flex;gap:6px;margin-bottom:14px;overflow-x:auto" class="fade-up">
-        ${['all','income','expense'].map(f => `<button class="chip ${state.finFilter===f?'active':''}" onclick="APP.setFinFilter('${f}')">${f==='all'?'Todas':f==='income'?'📈 Entradas':'📉 Saídas'}</button>`).join('')}
-      </div>
-      ${state.showTxnForm ? renderTxnForm() : ''}
-      <div class="card-title">${filtered.length} transações</div>
-      ${filtered.map(t => `
-        <div class="txn-row fade-up">
-          ${t.type === 'income' ? icons.up : icons.down}
-          <div style="flex:1;min-width:0">
-            <div class="txn-desc" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.desc}</div>
-            <div class="txn-meta">${t.category} · ${fmtDate(t.date)}${t.client ? ' · '+t.client : ''}</div>
-          </div>
-          <div class="txn-amount" style="color:${t.type==='income'?'var(--green)':'var(--red)'}">${t.type==='income'?'+':'−'}${fmt(t.amount)}</div>
-          <button style="background:none;padding:6px;color:var(--text4)" onclick="APP.delTxn('${t.id}')">${icons.trash}</button>
-        </div>
-      `).join('')}
-      ${filtered.length === 0 ? '<p style="color:var(--text4);text-align:center;padding:30px;font-size:13px">Nenhuma transação encontrada</p>' : ''}
-    `;
-  }
+// ═══ EMAIL ═══
+async function srchE(q){if(q)S.emailQ=q;const el=$('#e-res');if(el)el.innerHTML='<p style="color:var(--t3);font-size:12px;padding:8px">Buscando...</p>';if(hasAPI()){try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':S.profile.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:'Search Gmail: "'+(S.emailQ||'recent')+'". Summarize in Portuguese.'}],mcp_servers:[{type:'url',url:'https://gmail.mcp.claude.com/mcp',name:'gmail'}]})});const d=await r.json();S.emailResults=[d.content?.map(c=>c.text||'').filter(Boolean).join('\n')||'Sem resultados.'];}catch(e){S.emailResults=['❌ '+e.message];}}else{await new Promise(r=>setTimeout(r,500));S.emailResults=['📧 Email requer API Key. Configure nas Settings.'];}render();}
+async function scanE(){const btn=$('#sc-btn'),res=$('#sc-res');if(btn){btn.innerHTML='⏳...';btn.disabled=true;}await new Promise(r=>setTimeout(r,800));if(res)res.innerHTML='<div class="cd" style="margin-top:10px;border-color:rgba(245,158,11,.2)"><p style="color:var(--yl);font-size:12px">Scanner requer Gmail MCP'+(hasAPI()?'':' + API Key')+'.</p></div>';if(btn){btn.innerHTML=ic.scan+' Escanear';btn.disabled=false;}}
 
-  function renderTxnForm() {
-    return `
-      <div class="card fade-up" style="border-color:rgba(0,229,255,0.2);margin-bottom:14px">
-        <div class="card-title">Nova Transação</div>
-        <label class="form-label">Tipo</label>
-        <select id="txn-type"><option value="income">Entrada (Income)</option><option value="expense">Saída (Expense)</option></select>
-        <label class="form-label">Categoria</label>
-        <select id="txn-cat">
-          ${INCOME_CATS.map(c=>`<option value="${c}">${c}</option>`).join('')}
-        </select>
-        <label class="form-label">Descrição</label>
-        <input id="txn-desc" placeholder="Ex: Landscaping - Johnson">
-        <label class="form-label">Valor ($)</label>
-        <input id="txn-amount" type="number" inputmode="decimal" placeholder="0.00">
-        <label class="form-label">Data</label>
-        <input id="txn-date" type="date" value="${new Date().toISOString().split('T')[0]}">
-        <label class="form-label">Cliente (opcional)</label>
-        <input id="txn-client" placeholder="Nome do cliente">
-        <div style="display:flex;gap:8px;margin-top:16px">
-          <button class="btn-accent" style="flex:1" onclick="APP.addTxn()">Adicionar</button>
-          <button class="btn-secondary" onclick="APP.toggleTxnForm()">Cancelar</button>
-        </div>
-      </div>
-    `;
-  }
-  const INCOME_CATS = ['Service','Contract','Consultation','Product Sale','Other'];
-  const EXPENSE_CATS = ['Payroll','Equipment','Fuel','Materials','Insurance','Rent','Marketing','Utilities','Subcontractor','Other'];
+// ═══ AI ═══
+async function aiSend(preset){const input=$('#ci'),text=preset||(input?input.value.trim():'');if(!text)return;if(!preset&&input)input.value='';const nm=S.profile.name?.split(' ')[0]||'';if(!S.chatMsgs.length)S.chatMsgs.push({role:'bot',text:'Olá'+(nm?', '+nm:'')+' 👋\nPergunta o que quiser!'});S.chatMsgs.push({role:'user',text});render();const cl=$('#cl');if(cl)cl.style.display='block';const cs=$('#cs');if(cs)cs.scrollTop=cs.scrollHeight;const f=calc();
+if(hasAPI()){const ctx='DADOS: Receita '+fmtF(f.inc)+', Despesas '+fmtF(f.exp)+', Líquido '+fmtF(f.netA)+', Margem '+f.margin.toFixed(1)+'%. Top despesas: '+Object.entries(f.byCat).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k,v])=>k+': '+fmtF(v)+' ('+(v/(f.exp||1)*100).toFixed(0)+'%)').join(', ')+'. Fontes: '+Object.entries(f.bySrc).map(([k,v])=>k+': '+fmtF(v)).join(', ')+'. Últimas: '+S.txns.slice(0,10).map(t=>(t.type==='in'?'+':'-')+fmtF(t.amount)+' '+t.desc).join('; ');
+try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':S.profile.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:'Assistente financeiro pessoal de '+S.profile.name+'. Fale como humano, direto, empático. Use dados reais. Max 200 palavras.\n\n'+ctx,messages:[{role:'user',content:text}]})});const d=await r.json();const reply=d.content?.map(c=>c.text||'').filter(Boolean).join('\n');if(reply)S.chatMsgs.push({role:'bot',text:reply});else if(d.error)S.chatMsgs.push({role:'bot',text:'⚠️ API: '+d.error.message});else S.chatMsgs.push({role:'bot',text:'Resposta vazia. Tenta de novo?'});}catch(e){S.chatMsgs.push({role:'bot',text:'❌ '+e.message});}}
+else{await new Promise(r=>setTimeout(r,500));S.chatMsgs.push({role:'bot',text:localAI(text,f)});}save();render();}
 
-  function renderEmail() {
-    return `
-      <div style="display:flex;gap:8px;margin-bottom:12px" class="fade-up">
-        <div style="flex:1;position:relative">
-          <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text4)">${icons.search}</span>
-          <input id="email-q" style="padding-left:36px" placeholder="Buscar e-mails..." value="${state.emailQuery}" oninput="APP.state.emailQuery=this.value" onkeydown="if(event.key==='Enter')APP.searchEmail()">
-        </div>
-        <button class="btn-primary" onclick="APP.searchEmail()">Buscar</button>
-      </div>
-      <div style="display:flex;gap:6px;overflow-x:auto;margin-bottom:14px" class="fade-up">
-        ${[
-          {q:'payment OR invoice OR receipt', l:'💳 Pagamentos'},
-          {q:'quote request OR estimate', l:'🎯 Leads'},
-          {q:'contract OR proposal', l:'🤝 Oportunidades'},
-          {q:'is:unread', l:'📬 Não Lidos'},
-        ].map(f => `<button class="chip" onclick="APP.searchEmail('${f.q}')">${f.l}</button>`).join('')}
-      </div>
+// ═══ REPORTS ═══
+function dlTxt(){const t=$('#rep-txt')?.textContent||'';const b=new Blob([t],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='relatorio_'+new Date().toISOString().split('T')[0]+'.txt';a.click();}
+function dlCsv(){const h='Data,Tipo,Categoria,Descricao,Valor\n';const r=S.txns.map(t=>t.date+','+(t.type==='in'?'Entrada':'Saída')+','+t.cat+',"'+t.desc+'",'+t.amount).join('\n');const b=new Blob([h+r],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='transacoes_'+new Date().toISOString().split('T')[0]+'.csv';a.click();}
 
-      <div class="card fade-up" style="border-color:rgba(0,229,255,0.15)">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <div class="card-title" style="margin-bottom:2px">🤖 Scanner Inteligente</div>
-            <p style="font-size:11px;color:var(--text4)">IA categoriza: Pagamentos, Leads, Oportunidades</p>
-          </div>
-        </div>
-        <button class="btn-accent" style="width:100%;margin-top:12px;justify-content:center" onclick="APP.scanEmails()" id="scan-btn">
-          ${icons.scan} Escanear E-mails
-        </button>
-        <div id="scan-results"></div>
-      </div>
-
-      <div id="email-results" style="margin-top:12px">
-        ${state.emailResults.map(e => `<div class="card"><div class="code-block">${e}</div></div>`).join('')}
-      </div>
-    `;
-  }
-
-  function renderAgent() {
-    const msgs = state.chatMsgs.length ? state.chatMsgs : [{ role: 'bot', text: `Olá! Sou o Assistente Financeiro IA da ${state.settings.companyName}.\n\nTenho acesso a todos os números da empresa em tempo real. Pergunte-me qualquer coisa!` }];
-    return `
-      <div class="chat-area">
-        <div class="chat-messages" id="chat-scroll">
-          ${msgs.map(m => `<div class="msg ${m.role==='user'?'msg-user':'msg-bot'}">${m.text}</div>`).join('')}
-          <div id="chat-loading" style="display:none"><div class="loading-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
-        </div>
-        <div class="quick-row">
-          ${['Resumo financeiro','Cortar custos?','Top clientes','Previsão mês'].map(q => `<button class="chip" onclick="APP.agentSend('${q}')">${q}</button>`).join('')}
-        </div>
-        <div class="chat-input-row">
-          <input id="chat-input" placeholder="Pergunte sobre finanças..." onkeydown="if(event.key==='Enter')APP.agentSend()">
-          <button class="send-btn" onclick="APP.agentSend()">${icons.send}</button>
-        </div>
-      </div>
-    `;
-  }
-
-  function renderReports() {
-    const f = calcFin();
-    const report = `══════════════════════════════════
-  DAILY FINANCIAL REPORT
-  ${state.settings.companyName}
-  ${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
-══════════════════════════════════
-
-SUMMARY
-────────────────────────────────
-  Gross Revenue:    ${fmtFull(f.inc)}
-  Total Expenses:   ${fmtFull(f.exp)}
-  Net Before Tax:   ${fmtFull(f.net)}
-  Tax (${(state.settings.taxRate*100).toFixed(0)}%):          ${fmtFull(f.tax)}
-  Net After Tax:    ${fmtFull(f.netAfter)}
-  Profit Margin:    ${f.margin.toFixed(1)}%
-
-EXPENSES BY CATEGORY
-────────────────────────────────
-${Object.entries(f.byCat).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'  '+k.padEnd(18)+fmtFull(v)).join('\n')}
-
-REVENUE BY CLIENT
-────────────────────────────────
-${Object.entries(f.byClient).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'  '+k.padEnd(18)+fmtFull(v)).join('\n')}
-
-TRANSACTIONS
-────────────────────────────────
-${state.txns.sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,15).map(t=>'  '+t.date+' '+(t.type==='income'?'+':'-')+fmtFull(t.amount).padEnd(10)+' '+t.desc).join('\n')}
-
-══════════════════════════════════
-  Generated ${new Date().toLocaleString()}
-══════════════════════════════════`;
-
-    return `
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px" class="fade-up">
-        <button class="btn-primary" style="width:100%;justify-content:center" onclick="APP.downloadTxt()">${icons.download} Download .TXT</button>
-        <button class="btn-primary" style="width:100%;justify-content:center" onclick="APP.downloadCsv()">${icons.download} Export .CSV (Excel)</button>
-        <button class="btn-accent" style="width:100%;justify-content:center" onclick="APP.emailReport()" id="report-email-btn">
-          ${icons.mail} Email Draft → ${state.settings.ownerEmail}
-        </button>
-      </div>
-      <div id="report-status"></div>
-      <div class="card fade-up" style="animation-delay:0.1s">
-        <div class="card-title">📋 Preview</div>
-        <div class="code-block" id="report-text">${report}</div>
-      </div>
-    `;
-  }
-
-  function renderSettings() {
-    if (!state.showSettings) return '';
-    const s = state.settings;
-    return `
-      <div class="overlay" onclick="APP.closeSettings()">
-        <div class="modal" onclick="event.stopPropagation()">
-          <div class="modal-title">⚙ Configurações</div>
-          <label class="form-label">Nome da Empresa</label>
-          <input id="set-name" value="${s.companyName}">
-          <label class="form-label">E-mail do Dono</label>
-          <input id="set-email" type="email" value="${s.ownerEmail}">
-          <label class="form-label">Taxa de Imposto (%)</label>
-          <input id="set-tax" type="number" inputmode="decimal" value="${(s.taxRate*100).toFixed(0)}">
-          <div style="margin-top:20px;display:flex;gap:8px">
-            <button class="btn-accent" style="flex:1" onclick="APP.saveSettings()">Salvar</button>
-            <button class="btn-secondary" onclick="APP.closeSettings()">Cancelar</button>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  // ═══════════════════════════════════════════════════════════════
-  // MAIN RENDER
-  // ═══════════════════════════════════════════════════════════════
-  function render() {
-    const tabs = [
-      { id: 'dashboard', label: 'Dashboard', icon: icons.dash },
-      { id: 'finances', label: 'Finanças', icon: icons.money },
-      { id: 'email', label: 'E-mail', icon: icons.mail },
-      { id: 'agent', label: 'IA Agent', icon: icons.bot },
-      { id: 'reports', label: 'Reports', icon: icons.report },
-    ];
-    const tabLabels = { dashboard: 'Dashboard', finances: 'Finanças', email: 'E-mail Hub', agent: 'Agente IA', reports: 'Relatórios' };
-    let content = '';
-    switch (state.tab) {
-      case 'dashboard': content = renderDashboard(); break;
-      case 'finances': content = renderFinances(); break;
-      case 'email': content = renderEmail(); break;
-      case 'agent': content = renderAgent(); break;
-      case 'reports': content = renderReports(); break;
-    }
-
-    const dateStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-
-    $('#app').innerHTML = `
-      <div class="header">
-        <div>
-          <div class="header-title">⚡ ${tabLabels[state.tab]}</div>
-          <div class="header-sub">${state.settings.companyName} · ${dateStr}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="header-status"><div class="status-dot"></div>Ativo</div>
-          <button class="gear-btn" onclick="APP.openSettings()">${icons.gear}</button>
-        </div>
-      </div>
-      <div class="content" id="main-content">${content}</div>
-      <nav class="bottom-nav">
-        ${tabs.map(t => `<button class="nav-item ${state.tab===t.id?'active':''}" onclick="APP.setTab('${t.id}')">${t.icon}<span>${t.label}</span></button>`).join('')}
-      </nav>
-      ${renderSettings()}
-    `;
-
-    // Scroll chat to bottom
-    const cs = $('#chat-scroll');
-    if (cs) cs.scrollTop = cs.scrollHeight;
-
-    // Update type-dependent categories in form
-    const typeSelect = $('#txn-type');
-    if (typeSelect) {
-      typeSelect.onchange = function() {
-        const cats = this.value === 'income' ? INCOME_CATS : EXPENSE_CATS;
-        const catSel = $('#txn-cat');
-        catSel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
-      };
-    }
-  }
-
-  // ═══════════════════════════════════════════════════════════════
-  // ACTIONS
-  // ═══════════════════════════════════════════════════════════════
-
-  function setTab(t) { state.tab = t; render(); }
-  function setFinFilter(f) { state.finFilter = f; render(); }
-  function setFinSearch(v) { state.finSearch = v; render(); }
-  function toggleTxnForm() { state.showTxnForm = !state.showTxnForm; render(); }
-  function openSettings() { state.showSettings = true; render(); }
-  function closeSettings() { state.showSettings = false; render(); }
-
-  function addTxn() {
-    const type = $('#txn-type').value;
-    const cat = $('#txn-cat').value;
-    const desc = $('#txn-desc').value;
-    const amount = parseFloat($('#txn-amount').value);
-    const date = $('#txn-date').value;
-    const client = $('#txn-client').value;
-    if (!desc || !amount) return alert('Preencha descrição e valor');
-    state.txns.push({ id: uid(), type, category: cat, desc, amount, date, client });
-    state.showTxnForm = false;
-    save(); render();
-  }
-
-  function delTxn(id) {
-    state.txns = state.txns.filter(t => t.id !== id);
-    save(); render();
-  }
-
-  function saveSettings() {
-    state.settings.companyName = $('#set-name').value;
-    state.settings.ownerEmail = $('#set-email').value;
-    state.settings.taxRate = parseFloat($('#set-tax').value) / 100;
-    state.showSettings = false;
-    save(); render();
-  }
-
-  // ─── EMAIL ───
-  async function searchEmail(q) {
-    if (q) state.emailQuery = q;
-    const query = state.emailQuery || 'recent emails';
-    const el = $('#email-results');
-    if (el) el.innerHTML = '<p style="color:var(--text3);font-size:12px;padding:10px">Buscando...</p>';
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514', max_tokens: 1000,
-          messages: [{ role: 'user', content: `Search my Gmail for: "${query}". Return the most relevant results.` }],
-          mcp_servers: [{ type: 'url', url: 'https://gmail.mcp.claude.com/mcp', name: 'gmail' }],
-        }),
-      });
-      const data = await res.json();
-      const text = data.content?.map(c => c.text || c.content?.[0]?.text || '').filter(Boolean).join('\n') || 'Nenhum resultado.';
-      state.emailResults = [text];
-    } catch { state.emailResults = ['❌ Erro ao buscar. Verifique a conexão Gmail.']; }
-    render();
-  }
-
-  async function scanEmails() {
-    const btn = $('#scan-btn');
-    const results = $('#scan-results');
-    if (btn) btn.innerHTML = '⏳ Escaneando...';
-    if (btn) btn.disabled = true;
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514', max_tokens: 1000,
-          system: 'You are a business email analyzer. Search the user\'s Gmail and categorize recent emails into 3 categories. Return ONLY a JSON object: {"payments":[{"from":"...","subject":"..."}],"leads":[{"from":"...","subject":"..."}],"opportunities":[{"from":"...","subject":"..."}]}',
-          messages: [{ role: 'user', content: 'Search my recent emails from the past 7 days and categorize them.' }],
-          mcp_servers: [{ type: 'url', url: 'https://gmail.mcp.claude.com/mcp', name: 'gmail' }],
-        }),
-      });
-      const data = await res.json();
-      const allText = data.content?.map(c => c.text || '').filter(Boolean).join('\n') || '';
-      let parsed;
-      try { const m = allText.match(/\{[\s\S]*\}/); parsed = m ? JSON.parse(m[0]) : null; } catch { parsed = null; }
-      
-      if (parsed && (parsed.payments || parsed.leads || parsed.opportunities)) {
-        const cats = [
-          { title: '💳 Pagamentos', data: parsed.payments || [], color: 'var(--green)' },
-          { title: '🎯 Leads', data: parsed.leads || [], color: 'var(--cyan)' },
-          { title: '🤝 Oportunidades', data: parsed.opportunities || [], color: 'var(--yellow)' },
-        ];
-        if (results) results.innerHTML = `<div class="scan-grid">${cats.map(c => `
-          <div class="scan-cat" style="border-color:${c.color}22">
-            <div class="scan-cat-title" style="color:${c.color}">${c.title} (${c.data.length})</div>
-            ${c.data.length ? c.data.map(e => `<div class="scan-item"><div class="scan-item-subject">${e.subject||'—'}</div><div class="scan-item-from">${e.from||''}</div></div>`).join('') : '<p style="color:var(--text4);font-size:11px">Nenhum encontrado</p>'}
-          </div>
-        `).join('')}</div>`;
-      } else {
-        if (results) results.innerHTML = `<div class="code-block" style="margin-top:12px">${allText || 'Nenhum resultado.'}</div>`;
-      }
-    } catch {
-      if (results) results.innerHTML = '<p style="color:var(--red);font-size:12px;margin-top:10px">❌ Erro ao escanear.</p>';
-    }
-    if (btn) { btn.innerHTML = `${icons.scan} Escanear E-mails`; btn.disabled = false; }
-  }
-
-  // ─── AI AGENT ───
-  async function agentSend(preset) {
-    const input = $('#chat-input');
-    const text = preset || (input ? input.value.trim() : '');
-    if (!text) return;
-    if (!preset && input) input.value = '';
-    
-    if (state.chatMsgs.length === 0) {
-      state.chatMsgs.push({ role: 'bot', text: `Olá! Sou o Assistente Financeiro IA da ${state.settings.companyName}.\n\nTenho acesso a todos os números em tempo real!` });
-    }
-    state.chatMsgs.push({ role: 'user', text });
-    render();
-    
-    const loading = $('#chat-loading');
-    if (loading) loading.style.display = 'block';
-    const cs = $('#chat-scroll');
-    if (cs) cs.scrollTop = cs.scrollHeight;
-
-    const f = calcFin();
-    const context = `COMPANY FINANCIALS:\nGross Revenue: ${fmtFull(f.inc)}\nExpenses: ${fmtFull(f.exp)}\nNet Before Tax: ${fmtFull(f.net)}\nTax (${(state.settings.taxRate*100).toFixed(0)}%): ${fmtFull(f.tax)}\nNet After Tax: ${fmtFull(f.netAfter)}\nMargin: ${f.margin.toFixed(1)}%\n\nExpenses by Cat:\n${Object.entries(f.byCat).map(([k,v])=>k+': '+fmtFull(v)).join('\n')}\n\nRevenue by Client:\n${Object.entries(f.byClient).map(([k,v])=>k+': '+fmtFull(v)).join('\n')}\n\nRecent Transactions:\n${state.txns.slice(0,10).map(t=>`[${t.type}] ${t.desc} - ${fmtFull(t.amount)} (${t.date})`).join('\n')}`;
-
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514', max_tokens: 1000,
-          system: `You are the Financial AI Assistant for ${state.settings.companyName}. Answer in the same language the user writes. Be direct and use the data below.\n\n${context}`,
-          messages: [{ role: 'user', content: text }],
-        }),
-      });
-      const data = await res.json();
-      const reply = data.content?.map(c => c.text || '').filter(Boolean).join('\n') || 'Erro ao processar.';
-      state.chatMsgs.push({ role: 'bot', text: reply });
-    } catch {
-      state.chatMsgs.push({ role: 'bot', text: '❌ Erro de conexão.' });
-    }
-    render();
-  }
-
-  // ─── REPORTS ───
-  function getReportText() {
-    const f = calcFin();
-    return `DAILY FINANCIAL REPORT - ${state.settings.companyName}\n${new Date().toLocaleDateString()}\n\nGross Revenue: ${fmtFull(f.inc)}\nExpenses: ${fmtFull(f.exp)}\nNet Before Tax: ${fmtFull(f.net)}\nTax: ${fmtFull(f.tax)}\nNet After Tax: ${fmtFull(f.netAfter)}\nMargin: ${f.margin.toFixed(1)}%\n\nExpenses:\n${Object.entries(f.byCat).map(([k,v])=>k+': '+fmtFull(v)).join('\n')}\n\nRevenue:\n${Object.entries(f.byClient).map(([k,v])=>k+': '+fmtFull(v)).join('\n')}\n\nTransactions:\n${state.txns.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(t=>t.date+' '+(t.type==='income'?'+':'-')+fmtFull(t.amount)+' '+t.desc).join('\n')}`;
-  }
-
-  function downloadTxt() {
-    const text = $('#report-text')?.textContent || getReportText();
-    const blob = new Blob([text], { type: 'text/plain' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = `report_${new Date().toISOString().split('T')[0]}.txt`; a.click();
-  }
-
-  function downloadCsv() {
-    const header = 'Date,Type,Category,Description,Amount,Client\n';
-    const rows = state.txns.map(t => `${t.date},${t.type},${t.category},"${t.desc}",${t.amount},${t.client||''}`).join('\n');
-    const blob = new Blob([header + rows], { type: 'text/csv' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = `transactions_${new Date().toISOString().split('T')[0]}.csv`; a.click();
-  }
-
-  async function emailReport() {
-    const btn = $('#report-email-btn');
-    const status = $('#report-status');
-    if (btn) btn.innerHTML = '⏳ Enviando...';
-    if (btn) btn.disabled = true;
-    try {
-      await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514', max_tokens: 1000,
-          messages: [{ role: 'user', content: `Create a Gmail draft to ${state.settings.ownerEmail} with subject "Daily Report - ${state.settings.companyName} - ${new Date().toLocaleDateString()}" and body:\n\n${getReportText()}` }],
-          mcp_servers: [{ type: 'url', url: 'https://gmail.mcp.claude.com/mcp', name: 'gmail' }],
-        }),
-      });
-      if (status) status.innerHTML = '<div class="card" style="border-color:rgba(0,230,118,0.2);background:rgba(0,230,118,0.05);margin-bottom:12px"><p style="color:var(--green);font-size:13px">✅ Draft criado no Gmail!</p></div>';
-    } catch {
-      if (status) status.innerHTML = '<p style="color:var(--red);font-size:12px;margin-bottom:10px">❌ Erro ao criar draft.</p>';
-    }
-    if (btn) { btn.innerHTML = `${icons.mail} Email Draft`; btn.disabled = false; }
-  }
-
-  // ─── INIT ───
-  function init() {
-    load();
-    render();
-    // Register SW for offline (if hosted)
-    if ('serviceWorker' in navigator && location.protocol === 'https:') {
-      // For a single-file PWA, we'd need to create a SW blob
-      // This works when hosted on GitHub Pages with a separate sw.js
-    }
-  }
-
-  return {
-    init, render, setTab, setFinFilter, setFinSearch, toggleTxnForm, addTxn, delTxn,
-    openSettings, closeSettings, saveSettings,
-    searchEmail, scanEmails, agentSend,
-    downloadTxt, downloadCsv, emailReport,
-    state,
-  };
+function init(){load();render();}
+return{init,render,setTab,setupProfile,sFF,sFS,tTF,addT,delT,oS,cS,savS,toggleImport,importCSV,srchE,scanE,aiSend,dlTxt,dlCsv,updCats,S};
 })();
-
-// Boot
-document.addEventListener('DOMContentLoaded', APP.init);
+document.addEventListener('DOMContentLoaded',A.init);
 </script>
 </body>
 </html>
